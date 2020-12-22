@@ -1,17 +1,27 @@
-import { app } from 'electron';
-import { BrowserWindow } from 'electron/main';
-import path from 'path';
+import { app, BrowserWindow } from 'electron';
 
-app.on('ready', () => {
-  console.log('App is ready');
-});
+function createWindow () {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
 
-const win = new BrowserWindow({
-    width: 600,
-    height: 400
-  });
+  win.loadFile('index.html')
+}
 
-const indexHTML = path.join(__dirname + '/index.html');
-win.loadFile(indexHTML).then(() => {
-    // IMPLEMENT FANCY STUFF HERE
-});
+app.whenReady().then(createWindow)
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow()
+  }
+})

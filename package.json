@@ -11,7 +11,7 @@
   "devDependencies": {},
   "scripts": {
     "compile": "npx tsc && npx copyfiles -f src/index.html build",
-    "start": "npm run compile && npx electron"
+    "start": "npm run compile && npx electron build/index.js"
   },
   "keywords": [],
   "author": "",
